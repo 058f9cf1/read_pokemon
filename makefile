@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall
-SRCFILES = src/read_pk1.o src/main.o
+SRCFILES = src/read_pk1.o src/main.o src/tables.o
 TARGET = bin/read_pokemon
 
 all: $(TARGET)

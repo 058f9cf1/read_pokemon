@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include "tables.h"
+
 int read_pk1(FILE* file)
 {
 	const int SIZE = 69;
@@ -13,16 +15,16 @@ int read_pk1(FILE* file)
 	}
 	printf("\n");
     
-	printf("Species: %x\n", buffer[3]);
+	printf("Species: %s\n", pk1_pk2_species(buffer[3]));
 	printf("HP: %d\n", (buffer[4]<<8) | buffer[5]);
-	printf("Status Condition: %x\n", buffer[7]);
-	printf("Type 1: %x\n", buffer[8]);
-	printf("Type 2: %x\n", buffer[9]);
+	printf("Status Condition: %s\n", status_condition(buffer[7]));
+	printf("Type 1: %s\n", type(buffer[8]));
+	printf("Type 2: %s\n", type(buffer[9]));
 	printf("Catch Rate: %d\n", buffer[10]);
-	printf("Move 1: %x\n", buffer[11]);
-	printf("Move 2: %x\n", buffer[12]);
-	printf("Move 3: %x\n", buffer[13]);
-	printf("Move 4: %x\n", buffer[14]);
+	printf("Move 1: %s\n", move(buffer[11]));
+	printf("Move 2: %s\n", move(buffer[12]));
+	printf("Move 3: %s\n", move(buffer[13]));
+	printf("Move 4: %s\n", move(buffer[14]));
 	printf("OT ID: %d\n", (buffer[15]<<8) | buffer[16]);
 	printf("Exp Pointe: %d\n", (buffer[17]<<16) | (buffer[18]<<8) | buffer[19]);
 	printf("HP EV: %d\n", (buffer[20]<<8) | buffer[21]);
