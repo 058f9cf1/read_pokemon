@@ -19,5 +19,5 @@ int read_pk2(FILE* file)
 	printf("\n");
 
 	//Print out Pokemon data
-  return 0
+  return 0;
 }
