@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 			break;
 
 		case 74:	//.pk2
+			read_pk2(file);
 			break;
 		
 		//Gen 3+ Pokemon need to be decrypted
