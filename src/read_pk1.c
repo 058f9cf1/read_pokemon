@@ -4,17 +4,21 @@
 
 int read_pk1(FILE* file)
 {
+	//Size of .pk1 files
 	const int SIZE = 69;
 	unsigned char buffer[SIZE];
-	
+
+	//Read file bytes to array
 	fread(buffer, SIZE, 1, file);
-	
+
+	//Print file contents to the screen
 	for(int i = 0; i < SIZE; i++)
 	{
-    	printf("%x ", buffer[i]);
+    		printf("%x ", buffer[i]);
 	}
 	printf("\n");
-    
+
+	//Print out Pokemon data
 	printf("Species: %s\n", pk1_pk2_species(buffer[3]));
 	printf("HP: %d\n", (buffer[4]<<8) | buffer[5]);
 	printf("Status Condition: %s\n", status_condition(buffer[7]));
