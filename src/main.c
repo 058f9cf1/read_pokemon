@@ -1,6 +1,7 @@
 #include <stdio.h>
  
 #include "read_pk1.h"
+#include "read_pk2.h"
 
 int file_size(FILE* file)
 {
