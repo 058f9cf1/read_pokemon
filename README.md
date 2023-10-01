@@ -1,2 +1,2 @@
 # read_pokemon
-Read Pokemon extracted from games
+Extract pokemon from games and read individual pokemon data
