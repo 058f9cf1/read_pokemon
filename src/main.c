@@ -38,43 +38,44 @@ int main(int argc, char **argv)
 	unsigned char buffer[size];
 	fread(buffer, size, 1, file);
 
+	//Determine what type of file has been supplied
 	int file_type = pokemon_file_type(buffer, size);
 
 	switch(file_type)
 	{
-		case 100:
+		case 100:	//Red/Blue international save file
 			printf("Red/Blue international file\n");
 			break;
 
-		case 101:
+		case 101:	//Red/Green/Blue japaneese save file
 			printf("Red/Green/Blue japaneese file\n");
 			break;
 
-		case 110:
+		case 110:	//Yellow international save file
 			printf("Yellow international file\n");
 			break;
 
-		case 111:
+		case 111:	//Yellow japaneese save file
 			printf("Yellow japaneese file\n");
 			break;
 
-		case 200:
+		case 200:	//Gold/Silver international save file
 			printf("Gold/Silver international file\n");
 			break;
 
-		case 201:
+		case 201:	//Gold/Silver japaneese save file
 			printf("Gold/Silver japaneese file\n");
 			break;
 
-		case 202:
+		case 202:	//Gold/Silver korean save file
 			printf("Gold/Silver korean file\n");
 			break;
 
-		case 210:
+		case 210:	//Crystal international save file
 			printf("Crystal international file\n");
 			break;
 
-		case 211:
+		case 211:	//Crystal japaneese save file
 			printf("Crystal japaneese file\n");
 			break;
 
@@ -87,7 +88,7 @@ int main(int argc, char **argv)
 			read_pk2(buffer);
 			break;
 
-		//Gen 3+ Pokemon need to be decrypted
+		//Gen 3+ Pokemon and saves need to be decrypted
 
 
 		//If file size does not match a known pokemon format
