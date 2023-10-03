@@ -37,7 +37,7 @@ const char* type(int index)
 }
 
 
-const char* move(int index)
+const char* move_name(int index)
 {
 	const char* move_list[] =
 	{

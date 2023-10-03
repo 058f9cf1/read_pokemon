@@ -2,6 +2,7 @@
 
 #include "pokemon_file_type.h"
 
+#include "saves/read_rb_international.h"
 #include "pokemon/read_pk1.h"
 #include "pokemon/read_pk2.h"
 
@@ -44,7 +45,7 @@ int main(int argc, char **argv)
 	switch(file_type)
 	{
 		case 100:	//Red/Blue international save file
-			printf("Red/Blue international file\n");
+			read_rb_international(buffer);
 			break;
 
 		case 101:	//Red/Green/Blue japaneese save file

@@ -1,7 +1,9 @@
+#include <stdio.h>
+
 int validate_list(unsigned char* data, int offset, int value)
 {
 	//If the file is valid, the byte should be lower than the value and the list should be a given length
-	if(data[value] <= length && data[offset + data[offset] + 1] == 0xFF)
+	if(data[value] <= value && data[offset + data[offset] + 1] == 0xFF)
 	{
 		return 1;
 	}
