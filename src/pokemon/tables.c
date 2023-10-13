@@ -321,10 +321,8 @@ const char* catch_rate_to_item(int index)
 	{
 		return gen_2_item(0xAD);
 	}
-	else
-	{
-		return gen_2_item(index);
-	}
+
+	return gen_2_item(index);
 }
 
 
@@ -881,8 +879,8 @@ const char gender_list(int index, int attack)
 		8, 8, -1, 2, 2, 2, 2, -1, 2, 2,
 		2, 2, 2, 2, -1, -1, -1, 8, 8, 8,
 		-1, -1
-
 	};
+
 	if(gender[index] == -1)
 	{
 		return 'x';
@@ -891,6 +889,7 @@ const char gender_list(int index, int attack)
 	{
 		return 'f';
 	}
+
 	return 'm';
 }
 
@@ -903,10 +902,12 @@ const char pk1_character_map(int index)
 		' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '(', ')', ':', ';', '[', ']',
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 	};
+
 	if(index < 0x7f)
 	{
 		return '\0';
 	}
+
 	return characters[index - 0x7F];
 }
 

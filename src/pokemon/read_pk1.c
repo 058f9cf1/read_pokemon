@@ -158,7 +158,7 @@ int read_pk1(unsigned char* data)
 	printf("\nGeneration 2 features\n");
 	printf("Shiny: %d\n", p.shiny);
 	printf("Gender: %c\n", p.gender);
-	printf("Held Item: %d\n", catch_rate_to_item(p.catch_rate));
+	printf("Held Item: %s\n", catch_rate_to_item(p.catch_rate));
 
 	return 0;
 }

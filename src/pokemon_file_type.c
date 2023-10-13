@@ -1,15 +1,8 @@
-#include <stdio.h>
-
 int validate_list(unsigned char* data, int offset, int value)
 {
 	//If the file is valid, the byte should be lower than the value and the list should be a given length
-	if(data[value] <= value && data[offset + data[offset] + 1] == 0xFF)
-	{
-		return 1;
-	}
-	return 0;
+	return (data[value] <= value && data[offset + data[offset] + 1] == 0xFF);
 }
-
 
 int pokemon_file_type(unsigned char* data, int size)
 {
