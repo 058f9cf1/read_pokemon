@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "pokemon_file_type.h"
+#include "pokemon/pokemon_structs.h"
 
 #include "saves/read_rb_international.h"
 #include "pokemon/read_pk1.h"

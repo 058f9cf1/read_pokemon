@@ -1,4 +1,4 @@
-#include "read_pk1.h"
+#include "pokemon_structs.h"
 #include "tables.h"
 
 
