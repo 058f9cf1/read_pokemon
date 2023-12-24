@@ -4,6 +4,8 @@
 
 #include "saves/read_rb_international.h"
 #include "pokemon/read_pk1.h"
+#include "pokemon/print_pk1.h"
+
 #include "pokemon/read_pk2.h"
 
 
@@ -82,7 +84,9 @@ int main(int argc, char **argv)
 
 
 		case -69:	//.pk1
-			read_pk1(buffer);
+			gen_1_pokemon p;
+			read_pk1(&p, buffer);
+			print_pk1(&p, buffer);
 			break;
 
 		case -74:	//.pk2
