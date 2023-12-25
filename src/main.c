@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 		case -69:	//.pk1
 			gen_1_pokemon p;
 			read_pk1(&p, buffer);
-			print_pk1(&p, buffer);
+			print_pk1(&p);
 			break;
 
 		case -74:	//.pk2
