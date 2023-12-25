@@ -49,8 +49,8 @@ void read_pk1(gen_1_pokemon* p, unsigned char* data)
 	//Trainer information
 	for(int i = 0; i < 10; i++)
 	{
-		p->original_trainer[i] = data[0x2F + i];
-		p->nickname[i] = data[0x3A + i];
+		p->original_trainer[i] = pk1_character_map(data[0x2F + i]);
+		p->nickname[i] = pk1_character_map(data[0x3A + i]);
 	}
 
 	//Calculated values

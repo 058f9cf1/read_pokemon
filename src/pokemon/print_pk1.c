@@ -8,25 +8,17 @@ void print_pk1(gen_1_pokemon* p)
 {
 	//Print out Pokemon data
 	printf("Species: %s\n", species(pk1_pk2_species(p->species)));
-	printf("Nickname: ");
-	for(int i = 0; i < 10; i++)
-	{
-		printf("%c", pk1_character_map(p->nickname[i]));
-	}
+	printf("Nickname: %s\n", p->nickname);
 	if(p->type_1 == p->type_2)
 	{
-		printf("\nType: %s\n", type(p->type_1));
+		printf("Type: %s\n", type(p->type_1));
 	}
 	else
 	{
-		printf("\nType: %s/%s\n", type(p->type_1), type(p->type_2));
+		printf("Type: %s/%s\n", type(p->type_1), type(p->type_2));
 	}
-	printf("Original Trainer: ");
-	for(int i = 0; i < 10; i++)
-	{
-		printf("%c", pk1_character_map(p->original_trainer[i]));
-	}
-	printf("\nOT ID: %d\n", p->ot_id);
+	printf("Original Trainer: %s\n", p->original_trainer);
+	printf("OT ID: %d\n", p->ot_id);
 	printf("Level: %d\n", p->level);
 	printf("Exp Points: %d\n", p->exp_points);
 	printf("Current HP: %d\n", p->current_hp);

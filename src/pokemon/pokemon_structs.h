@@ -38,8 +38,8 @@ typedef struct
 	move move_4;
 
 	int catch_rate;
-	int original_trainer[10];
-	int nickname[10];
+	char original_trainer[10];
+	char nickname[10];
 
 	char gender;
 	int shiny;
