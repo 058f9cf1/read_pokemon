@@ -25,7 +25,7 @@ int read_rb_international(unsigned char* data)
 	printf("Player Name: ");
 	for(int i = offset; i < offset + 0xB; i++)
 	{
-		printf("%c", pk1_character_map(data[i]));
+		printf("%c", gb_character_map(data[i]));
 	}
 
 	//Pokedex
@@ -53,7 +53,7 @@ int read_rb_international(unsigned char* data)
 	//Money
 	offset = 0x25F3;
 	int money = (data[offset] >> 4) * 100000 + (data[offset] & 0b1111) * 10000 + (data[offset + 0x1] >> 4) * 1000 + (data[offset + 0x1] & 0b1111) * 100 + (data[offset + 0x2] >> 4) * 10 + (data[offset + 0x2] & 0b1111);
-	printf("\nMoney: %d\n", money);
+	printf("\nMoney: ₽%d\n", money);
 
 	//Rival Name
 	//TODO: Deal with suggested rival names
@@ -61,7 +61,7 @@ int read_rb_international(unsigned char* data)
 	printf("\nRival Name: ");
 	for(int i = offset; i < offset + 0xB; i++)
 	{
-		printf("%c", pk1_character_map(data[i]));
+		printf("%c", gb_character_map(data[i]));
 	}
 
 	//Game Options
@@ -96,7 +96,6 @@ int read_rb_international(unsigned char* data)
 	//Current Box Number
 	offset = 0x284C;
 	int current_box = (data[offset] & 0x7F) + 1;
-	printf("\nCurrent Box: %d\n", current_box);
 
 	//Hall of Fame Record Count
 	//offset = 0x284E;
@@ -122,25 +121,30 @@ int read_rb_international(unsigned char* data)
 	printf("\nPokemon \n------------\nParty:\n");
 	for(int i = offset + 0x1; i < offset + data[offset] + 1; i++)
 	{
-		int pokedex_number = pk1_pk2_species(data[i]);
+		int pokedex_number = gb_species_index(data[i]);
 		printf("%s ", species(pokedex_number));
-		printf("%c\n", gender_list(pokedex_number, data[0x2B * (i - offset) + i - 0x9] >> 4));
+		printf("%c\n", gender(pokedex_number, data[0x2B * (i - offset) + i - 0x9] >> 4));
 	}
 
 	//Boxes
 	for(int j = 0; j < 12; j++)
 	{
-		offset = 0x4000 + (0x2000 * (j / 6)) + (0x462 * (j % 6));
-		printf("\nBox %d:\n", j + 1);
+		printf("\nBox %d:", j + 1);
 		if(j + 1 == current_box)
 		{
 			offset = 0x30C0;
+			printf(" <- Current Box\n");
+		}
+		else
+		{
+			offset = 0x4000 + (0x2000 * (j / 6)) + (0x462 * (j % 6));
+			printf("\n");
 		}
 		for(int i = offset + 0x1; i < offset + data[offset] + 1; i++)
 		{
-			int pokedex_number = pk1_pk2_species(data[i]);
+			int pokedex_number = gb_species_index(data[i]);
 			printf("%s ", species(pokedex_number));
-			printf("%c\n", gender_list(pokedex_number, data[offset + 0x31 + (i - offset - 1) * 0x21] >> 4));
+			printf("%c\n", gender(pokedex_number, data[offset + 0x31 + (i - offset - 1) * 0x21] >> 4));
 		}
 	}
 

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "pokemon_structs.h"
+#include "../pokemon_structs.h"
 #include "tables.h"
 
 
@@ -8,7 +8,7 @@ void print_pk1(gen_1_pokemon* p)
 {
 	//Print out Pokemon data
 	printf("\n|------------------------------------|\n");
-	printf("| #%03d %-10s  ", pk1_pk2_species(p->species), species(pk1_pk2_species(p->species)));
+	printf("| #%03d %-10s  ", gb_species_index(p->species), species(gb_species_index(p->species)));
 	if(p->type_1 == p->type_2)
 	{
 		printf("%17s |\n", type(p->type_1));
