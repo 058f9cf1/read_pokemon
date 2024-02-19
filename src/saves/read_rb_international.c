@@ -94,7 +94,9 @@ int read_rb_international(unsigned char* data)
 	//offset = 0x27E6;
 
 	//Current Box Number
-	//offset = 0x284C;
+	offset = 0x284C;
+	int current_box = (data[offset] & 0x7F) + 1;
+	printf("\nCurrent Box: %d\n", current_box);
 
 	//Hall of Fame Record Count
 	//offset = 0x284E;
@@ -112,22 +114,36 @@ int read_rb_international(unsigned char* data)
 	//More bank 1 data to be read
 	//
 
+
+
 	//Party
 	//TODO: Read pokemon using reading file and expand data read
 	offset = 0x2F2C;
-	printf("\nPokemon \n------------\n");
+	printf("\nPokemon \n------------\nParty:\n");
 	for(int i = offset + 0x1; i < offset + data[offset] + 1; i++)
 	{
 		int pokedex_number = pk1_pk2_species(data[i]);
 		printf("%s ", species(pokedex_number));
 		printf("%c\n", gender_list(pokedex_number, data[0x2B * (i - offset) + i - 0x9] >> 4));
 	}
-	printf("\nOther Pokemon Data: ");
-	for(int i = offset + 0x8; i < offset + 0x194; i++)
+
+	//Boxes
+	for(int j = 0; j < 12; j++)
 	{
-		printf("%x ", data[i]);
+		offset = 0x4000 + (0x2000 * (j / 6)) + (0x462 * (j % 6));
+		printf("\nBox %d:\n", j + 1);
+		if(j + 1 == current_box)
+		{
+			offset = 0x30C0;
+		}
+		for(int i = offset + 0x1; i < offset + data[offset] + 1; i++)
+		{
+			int pokedex_number = pk1_pk2_species(data[i]);
+			printf("%s ", species(pokedex_number));
+			printf("%c\n", gender_list(pokedex_number, data[offset + 0x31 + (i - offset - 1) * 0x21] >> 4));
+		}
 	}
-	printf("\n");
+
 
 	//Checksum
 	offset = 0x2598;
