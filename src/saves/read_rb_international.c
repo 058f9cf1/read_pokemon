@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "../pokemon/tables.h"
+#include "data/tables.h"
 
-int read_rb_international(unsigned char* data)
+int read_rb_international(unsigned char *data)
 {
 	//Bank 0 - 0x0000 to 0x1FFF
 	//Bank 1 - 0x2000 to 0x3FFF

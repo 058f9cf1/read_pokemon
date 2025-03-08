@@ -1,7 +1,7 @@
 //Pokemon
-const char* species(int index)
+const char *species(int index)
 {
-	const char* species_list[] =
+	const char *species_list[] =
 	{
 		"Undiscovered",
 		"Bulbasaur",
@@ -270,9 +270,9 @@ const int gb_species_index(int index)
 }
 
 
-const char* status_condition(int index)
+const char *status_condition(int index)
 {
-	const char* status_condition_list[17];
+	const char *status_condition_list[17];
 	
 	status_condition_list[0] = "None";
 	status_condition_list[1] = "Asleep";
@@ -285,9 +285,9 @@ const char* status_condition(int index)
 }
 
 
-const char* type(int index)
+const char *type(int index)
 {
-	const char* type_list[27];
+	const char *type_list[27];
 
 	type_list[0] = "Normal";
 	type_list[1] = "Fighting";
@@ -367,9 +367,9 @@ const char gender(int index, int attack)
 
 
 //Items
-const char* gen_2_item(int index)
+const char *gen_2_item(int index)
 {
-	const char* item_list[] =
+	const char *item_list[] =
 	{
 		"?",
 		"Master Ball",
@@ -633,7 +633,7 @@ const char* gen_2_item(int index)
 }
 
 
-const char* catch_rate_to_item(int index)
+const char *catch_rate_to_item(int index)
 {
 	if(index == 0x19)
 	{
@@ -657,9 +657,9 @@ const char* catch_rate_to_item(int index)
 
 
 //Moves
-const char* move_name(int index)
+const char *move_name(int index)
 {
-	const char* move_list[] =
+	const char *move_list[] =
 	{
 		"None",
 		"Pound",

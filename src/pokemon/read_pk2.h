@@ -1,6 +1,6 @@
 #ifndef READ_PK2_H
 #define READ_PK2_H
 
-int read_pk2(unsigned char*);
+int read_pk2(unsigned char *);
 
 #endif

@@ -1,7 +1,8 @@
 #include <stdio.h>
 
 #include "pokemon_file_type.h"
-#include "pokemon_structs.h"
+#include "data/pokemon_structs.h"
+#include "data/game_versions.h"
 
 #include "saves/read_rb_international.h"
 #include "pokemon/read_pk1.h"
@@ -10,7 +11,7 @@
 #include "pokemon/read_pk2.h"
 
 
-int file_size(FILE* file)
+int file_size(FILE *file)
 {
 	//Test that the argument given is a file
 	if(file == NULL)
@@ -30,7 +31,7 @@ int file_size(FILE* file)
 int main(int argc, char **argv)
 {
 	//Open file given as argument
-	FILE* file = fopen(argv[1], "rb");
+	FILE *file = fopen(argv[1], "rb");
 	//Determine the size of the file
 	int size = file_size(file);
 	if(size < 0)
@@ -47,50 +48,50 @@ int main(int argc, char **argv)
 
 	switch(file_type)
 	{
-		case 100:	//Red/Blue international save file
+		case RB_U:
 			read_rb_international(buffer);
 			break;
 
-		case 101:	//Red/Green/Blue japaneese save file
+		case RB_J:
 			printf("Red/Green/Blue japaneese file\n");
 			break;
 
-		case 110:	//Yellow international save file
+		case Y_U:
 			printf("Yellow international file\n");
 			break;
 
-		case 111:	//Yellow japaneese save file
+		case Y_J:
 			printf("Yellow japaneese file\n");
 			break;
 
-		case 200:	//Gold/Silver international save file
+		case GS_U:
 			printf("Gold/Silver international file\n");
 			break;
 
-		case 201:	//Gold/Silver japaneese save file
+		case GS_J:
 			printf("Gold/Silver japaneese file\n");
 			break;
 
-		case 202:	//Gold/Silver korean save file
+		case GS_K:
 			printf("Gold/Silver korean file\n");
 			break;
 
-		case 210:	//Crystal international save file
+		case C_U:
 			printf("Crystal international file\n");
 			break;
 
-		case 211:	//Crystal japaneese save file
+		case C_J:
 			printf("Crystal japaneese file\n");
 			break;
 
 
-		case -69:	//.pk1
+		case 69:	//.pk1
 			gen_1_pokemon p;
 			read_pk1(&p, buffer);
 			print_pk1(&p);
 			break;
 
-		case -74:	//.pk2
+		case 73:	//.pk2
 			read_pk2(buffer);
 			break;
 

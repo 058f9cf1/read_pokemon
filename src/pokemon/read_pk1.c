@@ -1,8 +1,8 @@
-#include "../pokemon_structs.h"
-#include "tables.h"
+#include "data/pokemon_structs.h"
+#include "data/tables.h"
 
 
-void read_pk1(gen_1_pokemon* p, unsigned char* data)
+void read_pk1(gen_1_pokemon *p, unsigned char *data)
 {
 	int offset = 0x03;
 

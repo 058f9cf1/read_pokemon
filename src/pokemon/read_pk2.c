@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "tables.h"
+#include "data/tables.h"
 
-int read_pk2(unsigned char* data)
+int read_pk2(unsigned char *data)
 {
 	//Print file contents to the screen
 	for(int i = 0; i < 74; i++)

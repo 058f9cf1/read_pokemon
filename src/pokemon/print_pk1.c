@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "../pokemon_structs.h"
-#include "tables.h"
+#include "data/pokemon_structs.h"
+#include "data/tables.h"
 
 
-void print_pk1(gen_1_pokemon* p)
+void print_pk1(gen_1_pokemon *p)
 {
 	//Print out Pokemon data
 	printf("\n|------------------------------------|\n");
@@ -32,15 +32,15 @@ void print_pk1(gen_1_pokemon* p)
 	printf("| Held Item: %-23s |\n", catch_rate_to_item(p->catch_rate));
 	printf("|------------------------------------|\n");
 
-	printf("\n|---------|----|-------|-------|\n");
-	printf("|    Stat | IV |    EV | Total |\n");
-	printf("|---------|----|-------|-------|\n");
-	printf("|      HP |%3d |%6d |%6d |\n", p->iv.hp, p->ev.hp, p->stat.hp);
-	printf("|  Attack |%3d |%6d |%6d |\n", p->iv.attack, p->ev.attack, p->stat.attack);
-	printf("| Defence |%3d |%6d |%6d |\n", p->iv.defence, p->ev.defence, p->stat.defence);
-	printf("|   Speed |%3d |%6d |%6d |\n", p->iv.speed, p->ev.speed, p->stat.speed);
-	printf("| Special |%3d |%6d |%6d |\n", p->iv.special, p->ev.special, p->stat.special);
-	printf("|---------|----|-------|-------|\n");
+	printf("\n|-----------|----|-------|--------|\n");
+	printf("|    Stat   | IV |    EV | Total  |\n");
+	printf("|-----------|----|-------|--------|\n");
+	printf("|       HP  |%3d |%6d |%6d  |\n", p->iv.hp, p->ev.hp, p->stat.hp);
+	printf("|   Attack  |%3d |%6d |%6d  |\n", p->iv.attack, p->ev.attack, p->stat.attack);
+	printf("|  Defence  |%3d |%6d |%6d  |\n", p->iv.defence, p->ev.defence, p->stat.defence);
+	printf("|    Speed  |%3d |%6d |%6d  |\n", p->iv.speed, p->ev.speed, p->stat.speed);
+	printf("|  Special  |%3d |%6d |%6d  |\n", p->iv.special, p->ev.special, p->stat.special);
+	printf("|-----------|----|-------|--------|\n");
 
 	printf("\n|----------------|----------------|\n");
 	printf("| %-14s | %-14s |\n", move_name(p->move_1.name), move_name(p->move_2.name));
