@@ -272,38 +272,31 @@ const int gb_species_index(int index)
 
 const char *status_condition(int index)
 {
-	const char *status_condition_list[17];
-	
-	status_condition_list[0] = "None";
-	status_condition_list[1] = "Asleep";
-	status_condition_list[2] = "Poisoned";
-	status_condition_list[4] = "Burned";
-	status_condition_list[8] = "Frozen";
-	status_condition_list[16] = "Paralyzed";
-
-	return status_condition_list[index>>2];
+	switch(index)
+	{
+		case 0x00: return "None";
+		case 0x04: return "Asleep";
+		case 0x08: return "Poisoned";
+		case 0x10: return "Burned";
+		case 0x20: return "Frozen";
+		case 0x40: return "Paralyzed";
+		default:   return "Unknown";
+	}
 }
 
 
 const char *type(int index)
 {
-	const char *type_list[27];
+	const char *type_list[] =
+	{
+		"Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bird", "Bug", "Ghost",
+		"Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon"
+	};
 
-	type_list[0] = "Normal";
-	type_list[1] = "Fighting";
-	type_list[2] = "Flying";
-	type_list[3] = "Poison";
-	type_list[4] = "Ground";
-	type_list[5] = "Rock";
-	type_list[7] = "Bug";
-	type_list[8] = "Ghost";
-	type_list[20] = "Fire";
-	type_list[21] = "Water";
-	type_list[22] = "Grass";
-	type_list[23] = "Electric";
-	type_list[24] = "Psychic";
-	type_list[25] = "Ice";
-	type_list[26] = "Dragon";
+	if(index > 8)
+	{
+		index -= 11;
+	}
 	
 	return type_list[index];
 }

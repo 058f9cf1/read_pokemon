@@ -43,6 +43,6 @@ typedef struct
 
 	char gender;
 	int shiny;
-} gen_1_pokemon;
+} pk1;
 
 #endif

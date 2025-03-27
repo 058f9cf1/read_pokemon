@@ -86,7 +86,7 @@ int main(int argc, char **argv)
 
 
 		case 69:	//.pk1
-			gen_1_pokemon p;
+			pk1 p;
 			read_pk1(&p, buffer);
 			print_pk1(&p);
 			break;

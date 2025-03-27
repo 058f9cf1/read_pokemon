@@ -4,7 +4,7 @@
 #include "data/tables.h"
 
 
-void print_pk1(gen_1_pokemon *p)
+void print_pk1(pk1 *p)
 {
 	//Print out Pokemon data
 	printf("\n|------------------------------------|\n");
