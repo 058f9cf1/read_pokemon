@@ -9,7 +9,7 @@ void read_pk1(pk1 *p, unsigned char *data)
 	//Core bytes
 	p->species = data[0x00 + offset];
 	p->current_hp = (data[0x01 + offset] << 8) | data[0x02 + offset];
-	p->level = data[0x03 + offset];
+	//NOTE: Offset 0x03 is the level of the Pokemon when it was last in the PC
 	p->status_condition = data[0x04 + offset];
 	p->type_1 = data[0x05 + offset];
 	p->type_2 = data[0x06 + offset];
@@ -39,7 +39,7 @@ void read_pk1(pk1 *p, unsigned char *data)
 	p->move_4.pp_ups = data[0x20 + offset] >> 6;
 
 	//Temp bytes
-	//NOTE: Offset 0x21 is level when in the pc. It is always the same as the level stored in core bytes
+	p->level = data[0x21 + offset];
 	p->stat.hp = (data[0x22 + offset] << 8) | data[0x23 + offset];
 	p->stat.attack = (data[0x24 + offset] << 8) | data[0x25 + offset];
 	p->stat.defence = (data[0x26 + offset] << 8) | data[0x27 + offset];

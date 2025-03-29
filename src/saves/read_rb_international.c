@@ -1,5 +1,42 @@
 #include <stdio.h>
 #include "data/tables.h"
+#include "data/pokemon_structs.h"
+
+#include "pokemon/read_pk1.h"
+#include "pokemon/print_pk1.h"
+
+
+int calculate_checksum(unsigned char *data, int from, int to)
+{
+	unsigned char checksum = 0;
+	for(int i = from; i < to; i++)
+	{
+		checksum += data[i];
+	}
+	return checksum ^= 0xFF;
+}
+
+
+void extract_pokemon(pk1 *p, unsigned char *data, int offset, int i, int data_size, int count, int box)
+{
+	unsigned char pk[69];
+	for(int k = 0; k < data_size; k++)
+	{
+		pk[k + 0x03] = data[offset + (count + 2) + (i * data_size) + k];
+	}
+	if(box)
+	{
+		pk[0x24] = pk[6];
+	}
+	int names_offset = data_size * count + count + 2;
+	for(int k = 0; k < 10; k++)
+	{
+		pk[k + 0x2F] = data[offset + names_offset + (i * 0xB) + k];
+		pk[k + 0x3A] = data[offset + names_offset + (count + i) * 0xB + k];
+	}
+	read_pk1(p, pk);
+}
+
 
 int read_rb_international(unsigned char *data)
 {
@@ -22,7 +59,7 @@ int read_rb_international(unsigned char *data)
 
 	//Player Name
 	offset = 0x2598;
-	printf("Player Name: ");
+	printf("\nPlayer Name: ");
 	for(int i = offset; i < offset + 0xB; i++)
 	{
 		printf("%c", gb_character_map(data[i]));
@@ -33,15 +70,16 @@ int read_rb_international(unsigned char *data)
 	offset = 0x25A3;
 	int obtained, seen;
 	char pokedex_display[] = {' ', '*'};
-	printf("\n\nDEX O S\n-------\n");
-	for(int i = 0; i < 152; i++)
+	printf("\n\nPokedex\n No.    Species O S\n-------------------\n");
+	for(int i = 0; i < 151; i++)
 	{
 		obtained = data[offset + (i >> 3)] >> (i & 7) & 1;
 		seen = data[offset + 0x13 + (i >> 3)] >> (i & 7) & 1;
-		printf("%03d %c %c\n", i + 1, pokedex_display[obtained], pokedex_display[seen]);
+		printf("#%03d %10s %c %c\n", i + 1, species(i + 1), pokedex_display[obtained], pokedex_display[seen]);
 	}
 
 	//Bag Items
+	//TODO: Display item names
 	offset = 0x25C9;
 	int item_count = data[offset];
 	printf("\nBag\n------\n");
@@ -84,6 +122,9 @@ int read_rb_international(unsigned char *data)
 	//Current Map
 	//offset = 0x260A;
 
+	//Last Map
+	//offset = 0x2611;
+
 	//Player Coordinates
 	//offset = 0x260D;
 
@@ -106,59 +147,105 @@ int read_rb_international(unsigned char *data)
 	//Owned Hidden Items
 	//offset = 0x299C;
 
+	//Owned Hidden Coins
+	//offset = 0x29AA;
+
 	//Towns Visited
 	//offset = 0x29B7;
 
-	//
-	//More bank 1 data to be read
-	//
+	//Rival's Starter
+	//offset = 0x29C1;
 
+	//Player's Starter
+	//offset = 0x29C3;
 
+	//Flags 1
+	//offset = 0x29D4;
+
+	//Flags 2
+	//offset = 0x29D8;
+
+	//Flags 3
+	//offset = 0x29D9;
+
+	//Flags 4
+	//offset = 0x29DA;
+
+	//Flags 5
+	//offset = 0x29DC;
+
+	//Flags 6
+	//offset = 0x29DE;
+
+	//Flags 7
+	//offset = 0x29DF;
+
+	//Flags 8
+	//offset = 0x29E2;
+
+	//Completed In-Game Trades
+	//offset = 0x29E3;
+
+	//Lt. Surge Gym Locks
+	//offset = 0x29EF;
+
+	//Completed Game Events
+	//offset = 0x29F3;
+
+	//Time played
+	//offset = 0x2CED;
+
+	//Daycare
+	//offset = 0x2CF5;
 
 	//Party
-	//TODO: Read pokemon using reading file and expand data read
 	offset = 0x2F2C;
-	printf("\nPokemon \n------------\nParty:\n");
-	for(int i = offset + 0x1; i < offset + data[offset] + 1; i++)
+	printf("\nParty:\n");
+	for(int i = 0; i < data[offset]; i++)
 	{
-		int pokedex_number = gb_species_index(data[i]);
-		printf("%s ", species(pokedex_number));
-		printf("%c\n", gender(pokedex_number, data[0x2B * (i - offset) + i - 0x9] >> 4));
+		pk1 p;
+		extract_pokemon(&p, data, offset, i, 0x2C, 6, 0);
+		print_pk1(&p);
+		printf("\n\n");
 	}
+
+	//Bank 1 Checksum
+	offset = 0x2598;
+	int checksum = calculate_checksum(data, offset, offset + 0xF8B);
+	printf("\nBank 1 Calculated Checksum: %u\n", checksum);
+	printf("Bank 1 Read Checksum:       %u\n", data[0x3523]);
+
+	//*************
+	//BANKS 2 and 3
+	//*************
 
 	//Boxes
-	for(int j = 0; j < 12; j++)
+	offset = 0x4000;
+	for(int j = 1; j <= 12; j++)
 	{
-		printf("\nBox %d:", j + 1);
-		if(j + 1 == current_box)
+		printf("\nBox %d:", j);
+		if(j == current_box)
 		{
-			offset = 0x30C0;
-			printf(" <- Current Box\n");
+			printf(" <- Current Box");
 		}
-		else
+		printf("\n");
+
+		//Loop through pokemon
+		for(int i = 0; i < data[offset]; i++)
 		{
-			offset = 0x4000 + (0x2000 * (j / 6)) + (0x462 * (j % 6));
-			printf("\n");
+			pk1 p;
+			extract_pokemon(&p, data, offset, i, 0x21, 20, 1);
+			print_main(&p);
 		}
-		for(int i = offset + 0x1; i < offset + data[offset] + 1; i++)
+
+		offset += 0x462;
+		if(j == 6)
 		{
-			int pokedex_number = gb_species_index(data[i]);
-			printf("%s ", species(pokedex_number));
-			printf("%c\n", gender(pokedex_number, data[offset + 0x31 + (i - offset - 1) * 0x21] >> 4));
+			offset = 0x6000;
 		}
 	}
 
-
-	//Checksum
-	offset = 0x2598;
-	unsigned char checksum = 0;
-	for(int i = offset; i < offset + 0xF8B; i++)
-	{
-		checksum += data[i];
-	}
-	checksum ^= 0xFF;
-	printf("\nCalculated Checksum: %d\n", checksum);
-	printf("Read Checksum:       %d\n", data[0x3523]);
+	//Bank 2 and 3 Checksums
 
 	return 0;
 }
